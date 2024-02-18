@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "dotenv": "^16.4.4",
+    "node-fetch": "^2.7.0",
+    "node-getpocket": "^1.0.0",
+    "pino": "^6.14.0",
+    "pino-logflare": "^0.4.2"
+  }
+}

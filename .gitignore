@@ -1,0 +1,10 @@
+
+.DS_Store
+._*
+Thumbs.db
+.Spotlight-V100
+.Trashes
+node_modules
+npm-debug.log
+package-lock.json
+.env
