@@ -4,7 +4,7 @@
       "command": "node main.js 8000",
       "schedule": "15 1 * * *"
     }
-  ]
+  ],
   "formation": {
     "web": {
       "quantity": 0
