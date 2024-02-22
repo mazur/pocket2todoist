@@ -1,7 +1,7 @@
 {
   "cron": [
     {
-      "command": "npm run",
+      "command": "npm run prod",
       "schedule": "15 1 * * *"
     }
   ],
