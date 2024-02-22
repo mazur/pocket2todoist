@@ -8,7 +8,9 @@ const logger = require('pino')();
 const consumerKey = process.env.POCKET_CONSUMER_KEY;
 const accessToken = process.env.POCKET_ACCESS_TOKEN;
 const todoistToken = process.env.TODOIST_TOKEN;
-const wordCount = parseInt(process.argv[2], 10) || 8000;
+const wordsPerMinute = 250;
+const dailyReadProjectId = '2328700616'; // Replace with your "Daily Read" project ID
+const wordCount = (parseInt(process.argv[2], 10) || 30)* wordsPerMinute;
 
 logger.info(`Running with word count: ${wordCount}`);
 
@@ -64,7 +66,7 @@ async function addTaskToTodoist(content, dueDate) {
     const url = 'https://api.todoist.com/rest/v2/tasks';
     const data = {
         content: content,
-        project_id: '2328700616', // Replace with your "Daily Read" project ID
+        project_id: dailyReadProjectId,
         due_date: dueDate,
     };
 
@@ -90,7 +92,7 @@ async function main() {
 
         for (const article of selectedArticles) {
             const link = `https://getpocket.com/read/${article.resolved_id}`;
-            const duration = article.word_count / 200; // Assuming average reading speed is 200 words per minute
+            const duration = article.word_count / wordsPerMinute;
             const content = `[📰 ${article.resolved_title}](${link}) [${Math.ceil(duration)} mins]`;
             await addTaskToTodoist(content, today);
             logger.info(`Added task to Todoist: ${content}`);

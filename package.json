@@ -1,9 +1,22 @@
 {
+  "name": "pocket2todoit",
+  "version": "1.0.0",
+  "description": "Simple script to pick articles from Pocket and psuh them to Todoist.",
+  "main": "main.js",
+  "scripts": {
+    "dev": "node main.js 5 | node ./node_modules/pino-pretty/bin.js",
+    "prod": "node main.js 30 | node ./node_modules/pino-logflare/dist/cli.js --key $LOGFLARE_KEY --source $LOGFLARE_SOURCE"
+  },
+  "author": "Martin Mazur",
+  "license": "MIT",
   "dependencies": {
     "dotenv": "^16.4.4",
     "node-fetch": "^2.7.0",
     "node-getpocket": "^1.0.0",
     "pino": "^6.14.0",
     "pino-logflare": "^0.4.2"
+  },
+  "devDependencies": {
+    "pino-pretty": "^10.3.1"
   }
 }
