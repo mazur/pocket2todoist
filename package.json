@@ -5,7 +5,7 @@
   "main": "main.js",
   "scripts": {
     "dev": "node main.js 5 | node ./node_modules/pino-pretty/bin.js",
-    "prod": "node main.js 30 | node ./node_modules/pino-logflare/dist/cli.js --key $LOGFLARE_KEY --source $LOGFLARE_SOURCE"
+    "prod": "node main.js 25 | node ./node_modules/pino-logflare/dist/cli.js --key $LOGFLARE_KEY --source $LOGFLARE_SOURCE"
   },
   "author": "Martin Mazur",
   "license": "MIT",

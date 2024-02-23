@@ -47,14 +47,14 @@ async function selectArticles() {
    const shuffledArticles = unreadArticles.sort(() => Math.random() - 0.5);
 
    for (const article of shuffledArticles) {
-       const articleWords = parseInt(article.word_count, 10) || 0;
+      const articleWords = parseInt(article.word_count, 10) || wordsPerMinute; // Assume at least one minute if missing word count
 
-       // Select the article if adding it keeps the total words below 8000
-       if (totalWords + articleWords < wordCount) {
-           selectedArticles.push(article);
-           totalWords += articleWords;
-       } else {
-           break; // Stop selecting articles once the word limit is reached
+      selectedArticles.push(article);
+      totalWords += articleWords;
+
+       // Break if we are over the limit. Yes this will give us more than we asked for but avoids returning empty if first article is large
+       if (totalWords >= wordCount) {
+           break;
        }
    }
 
@@ -62,12 +62,13 @@ async function selectArticles() {
 }
 
 // Function to add a task to Todoist
-async function addTaskToTodoist(content, dueDate) {
+async function addTaskToTodoist(content, description, dueDate) {
     const url = 'https://api.todoist.com/rest/v2/tasks';
     const data = {
         content: content,
         project_id: dailyReadProjectId,
         due_date: dueDate,
+        description: description
     };
 
     const response = await fetch(url, {
@@ -94,7 +95,7 @@ async function main() {
             const link = `https://getpocket.com/read/${article.resolved_id}`;
             const duration = article.word_count / wordsPerMinute;
             const content = `[📰 ${article.resolved_title}](${link}) [${Math.ceil(duration)} mins]`;
-            await addTaskToTodoist(content, today);
+            await addTaskToTodoist(content, article.resolved_url, today);
             logger.info(`Added task to Todoist: ${content}`);
         }
 
